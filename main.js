@@ -11,20 +11,32 @@ let spriteWidth = 575;/*P/acomodar la img a mi canvas, divido el ancho de la img
 let spriteHeight = 523;
 
 let frameX = 0;
-let frameY = 0;
+let frameY = 4;
+let gameFrame = 0;
+let staggerFrames = 5; //c/5 frames va a dar true en la condición de la función animar
 //----------------------------------------------------------------------------
 
 function animar(){
     context.clearRect(0, 0, canvasWidth, canvasHeight);
+//otra forma de ahcer que los movimientos del perrito sean más lentos o rápidos
+  /*  let position = Math.floor(gameFrame/staggerFrames) % 11;
+    frameX = spriteWidth * position;*/
+
     context.drawImage(imagen, frameX * spriteWidth, frameY * spriteHeight, spriteWidth, spriteHeight,
                       0, 0, spriteWidth, spriteHeight);
 
-        if (frameX < 6){
-            frameX++;
+    if (gameFrame % staggerFrames == 0){//para que no vaya tan rápido los movimientos
+        if (frameX < 4){
+            frameX++;           //si solo se cumple esa condición, que el resto sea '0', que aumente en X
         }else{
             frameX = 0;
         }
 
+    }
+
+        
+    
+        gameFrame++;
     requestAnimationFrame(animar);
 }
 
